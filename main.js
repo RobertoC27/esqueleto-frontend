@@ -229,6 +229,10 @@ function getStatuses() {
     });
 }
 
+function fromHex(arg) {
+	return web3latest.utils.toUtf8(arg);
+}
+
 function getSteps() {
     
     totalTransfers = ShippingContract.methods.getTotalTransfers().call();
@@ -236,9 +240,11 @@ function getSteps() {
         for (let index = 0; index < result; index++) {
             ShippingContract.methods.transfers(index).call().then((info) => {
                 //estos son los elementos que se tienen que mostrar 
-                console.log(info['description']);
+                console.log(fromHex(info['description']));
                 console.log(info['date']);
-                console.log(info['agent']);
+				console.log(info['agent']);
+				console.log(info);
+				
             })
             
         }
@@ -247,6 +253,8 @@ function getSteps() {
     getStatuses();
 }
 
-
-
+func = async () => {
+	console.log(await ShippingContract.methods.id().call());
+}
+func();
 getSteps();
